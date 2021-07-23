@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Unblogged</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://unpkg.com/purecss@2.0.6/build/pure-min.css" integrity="sha384-Uu6IeWbM+gzNVXJcM9XV3SohHtmWE+3VGi496jvgX1jyvDTXfdK+rfZc8C1Aehk5" crossorigin="anonymous">
+</head>
+
+<body>
+    <div class="container">
+        <h1>Unblogged</h1>
+        <div class="editor">
+            <textarea id="editor" name="editor" rows="10" cols="80" placeholder="Write your post here..."></textarea>
+        </div>
+        <button onclick="post()">Post</button>
+
+        <form class="pure-form">
+            <fieldset>
+                <legend>A compact inline form</legend>
+                <input type="text" placeholder="Personal Access Token" />
+                <textarea class="pure-input-1-2" placeholder="Post Content"></textarea>
+
+                <button class="pure-button pure-button-primary" onclick='post();'>Post</button>
+            </fieldset>
+        </form>
+
+        <script>
+            var editor = document.getElementById('editor');
+
+            function post() {
+                var editorValue = editor.value;
+                //Base64 encode the text
+                var encoded = btoa(editorValue);
+                console.log(encoded);
+            }
+        </script>
+
+    </div>
+
+</body>
+
+</html>
