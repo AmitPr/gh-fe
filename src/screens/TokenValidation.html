@@ -1,0 +1,67 @@
+<style>
+    #token-verify {
+        opacity: 0;
+        transform: translateY(100%);
+    }
+    
+    #token-verify.animated-reverse {
+        animation: fade-out-bottom 0.25s ease-out;
+        animation-fill-mode: forwards;
+    }
+    
+    #token-verify.animated {
+        animation: fade-in-bottom 0.25s ease-out;
+        animation-fill-mode: forwards;
+    }
+    
+    #token-input-container.animated {
+        animation: fade-out 0.5s ease-out 0.25s;
+        animation-fill-mode: forwards;
+    }
+    
+    @keyframes fade-out {
+        0% {
+            opacity: 1;
+        }
+        100% {
+            opacity: 0;
+            overflow: hidden;
+            visibility: hidden;
+        }
+    }
+    
+    @keyframes fade-in-bottom {
+        0% {
+            opacity: 0;
+            transform: translateY(100%);
+        }
+        100% {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+    
+    @keyframes fade-out-bottom {
+        0% {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        100% {
+            opacity: 0;
+            transform: translateY(100%);
+        }
+    }
+</style>
+<div id="token-input-container" class="col-md-12">
+    <h2 class="text-left">Personal Access Token</h2>
+    <h6 class="text-left text-muted">Required to upload and manage content</h6>
+    <div class="input-group-lg py-2 has-validation">
+        <input id="token-input" class="form-control px-0 border-top-0 border-end-0 border-start-0 rounded-0 shadow-none" type="text" placeholder="Enter Personal Access Token here...">
+        <div id="token-feedback" class="invalid-feedback">
+            Tokens are 40 characters long, can only contain alphanumeric characters, and begin with "ghp_"
+        </div>
+    </div>
+    <div class="pt-2">
+        <button type="button" class="btn-lg btn-success border-0 shadow-none" id="token-verify" onclick="verifyTokenButtonPressed();">Verify</button>
+    </div>
+</div>

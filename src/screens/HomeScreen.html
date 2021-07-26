@@ -1,0 +1,27 @@
+<style>
+    #home-screen-container {
+        opacity: 0;
+        overflow: hidden;
+        visibility: hidden;
+    }
+    
+    #home-screen-container.animated {
+        animation: fade-in 0.5s ease-out 0.75s;
+        animation-fill-mode: forwards;
+    }
+    
+    @keyframes fade-in {
+        0% {
+            opacity: 0;
+            overflow: visible;
+            visibility: visible;
+        }
+        100% {
+            opacity: 1;
+        }
+    }
+</style>
+
+<div id="home-screen-container" class="col-md-12 animated">
+    <h2 id="header-greeting">Welcome back, Placeholder</h2>
+</div>
