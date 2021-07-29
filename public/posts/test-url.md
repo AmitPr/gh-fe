@@ -1,7 +1,7 @@
 
 ---
-headline: Another Edit, to check client-side feedback  
-description: description that is super interesting  
+headline: test2  
+description: test2  
 ---
 # Hello World
 This is a test post!
