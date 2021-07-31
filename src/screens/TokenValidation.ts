@@ -31,9 +31,9 @@ class TokenValidation {
                 this.input.classList.add("is-valid");
                 this.input.classList.remove("is-invalid");
                 this.container.classList.add("animated");
-                this.container.addEventListener("transitionend", () => {
-                    AdminPortal.Instance.currentScreen = new HomeScreen();
-                });
+                setTimeout(() => {
+                    this.dispose();
+                }, 500);
                 this.feedback.innerHTML = Messages.TOKEN_VERIFIED;
             } else {
                 this.input.classList.add("is-invalid");
@@ -67,6 +67,10 @@ class TokenValidation {
             this.verifyButton.classList.add("animated");
             this.verifyButton.classList.remove("animated-reverse");
         }
+    }
+
+    dispose() {
+        AdminPortal.Instance.currentScreen = new HomeScreen();
     }
 }
 

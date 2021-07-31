@@ -6,8 +6,22 @@
     }
     
     #home-screen-container.animated {
-        animation: fade-in 0.5s ease-out 0.75s;
-        animation-fill-mode: forwards;
+        animation: fade-in 0.5s ease-out 0.25s forwards;
+    }
+    
+    #home-screen-container.animated-reverse {
+        animation: fade-out 0.5s ease-out 0s forwards;
+    }
+    
+    #actionbar-container {
+        opacity: 0;
+        overflow: hidden;
+        visibility: hidden;
+        animation: fade-in 0.25s ease-out 1.125s forwards;
+    }
+    
+    #header-greeting {
+        animation: slide-up 0.25s ease-in-out 1s forwards;
     }
     
     @keyframes fade-in {
@@ -18,10 +32,45 @@
         }
         100% {
             opacity: 1;
+            overflow: visible;
+            visibility: visible;
+        }
+    }
+    
+    @keyframes fade-out {
+        0% {
+            opacity: 1;
+            overflow: visible;
+            visibility: visible;
+        }
+        100% {
+            opacity: 0;
+            overflow: hidden;
+            visibility: hidden;
+        }
+    }
+    
+    @keyframes slide-up {
+        0% {
+            transform: translateY(0%);
+        }
+        100% {
+            transform: translateY(-100%);
         }
     }
 </style>
 
 <div id="home-screen-container" class="col-md-12 animated">
-    <h2 id="header-greeting">Welcome back, Placeholder</h2>
+    <div class="row">
+        <div class="col-md-12">
+            <h2 id="header-greeting">Welcome back, Placeholder</h2>
+            <div id="actionbar-container">
+                <button id="upload-button" class="btn-lg btn-primary border-0 shadow-none">Upload/Edit Posts</button>
+                <button id="delete-button" class="btn-lg btn-primary border-0 shadow-none">Delete Posts</button>
+            </div>
+        </div>
+        <div id='status-bar' class="col-md-12 hidden">
+            <h3 id='status'></h3>
+        </div>
+    </div>
 </div>

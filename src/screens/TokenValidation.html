@@ -5,18 +5,15 @@
     }
     
     #token-verify.animated-reverse {
-        animation: fade-out-bottom 0.25s ease-out;
-        animation-fill-mode: forwards;
+        animation: fade-out-bottom 0.25s ease-out forwards;
     }
     
     #token-verify.animated {
-        animation: fade-in-bottom 0.25s ease-out;
-        animation-fill-mode: forwards;
+        animation: fade-in-bottom 0.25s ease-out forwards;
     }
     
     #token-input-container.animated {
-        animation: fade-out 0.5s ease-out 0.25s;
-        animation-fill-mode: forwards;
+        animation: fade-out 0.5s ease-out 0.25s forwards;
     }
     
     @keyframes fade-out {
@@ -62,6 +59,6 @@
         </div>
     </div>
     <div class="pt-2">
-        <button type="button" class="btn-lg btn-success border-0 shadow-none" id="token-verify" onclick="verifyTokenButtonPressed();">Verify</button>
+        <button type="button" class="btn-lg btn-success border-0 shadow-none" id="token-verify">Verify</button>
     </div>
 </div>

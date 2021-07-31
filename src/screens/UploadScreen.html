@@ -1,0 +1,65 @@
+<style>
+    #upload-screen-container {
+        opacity: 0;
+        overflow: hidden;
+        visibility: hidden;
+        animation: fade-in 0.5s ease-out 0s forwards;
+    }
+    
+    #upload-screen-container.animated-reverse {
+        animation: fade-out 0.5s ease-out 0s forwards;
+    }
+    
+    @keyframes fade-in {
+        0% {
+            opacity: 0;
+            overflow: visible;
+            visibility: visible;
+        }
+        100% {
+            opacity: 1;
+            overflow: visible;
+            visibility: visible;
+        }
+    }
+    
+    @keyframes fade-out {
+        0% {
+            opacity: 1;
+            overflow: visible;
+            visibility: visible;
+        }
+        100% {
+            opacity: 0;
+            overflow: hidden;
+            visibility: hidden;
+        }
+    }
+</style>
+<div id="upload-screen-container" class="col-md-12">
+    <h1 class="mb-5">Upload a new Post</h1>
+    <div class="row">
+        <div class="col-md-2">
+            <button class="btn btn-primary border-0 shadow-none" id='back-button'>Back</button>
+        </div>
+        <div class="col-md-10">
+            <div class="form-group py-1">
+                <label for="post-headline">Post Headline</label>
+                <input type="text" class="form-control" id="post-headline" placeholder="Type headline here...">
+            </div>
+            <div class="form-group py-1">
+                <label for="post-path">Post URL</label>
+                <input type="text" class="form-control" id="post-path" placeholder="Type URL here...">
+            </div>
+            <div class="form-group py-1">
+                <label for="post-description">Post Description</label>
+                <textarea class="form-control" id="post-description" rows="3" placeholder="Post description text here..."></textarea>
+            </div>
+            <div class="form-group py-1">
+                <label for="post-content">Upload Markdown File</label>
+                <input type="file" id="post-content" class="form-control" accept='.md'>
+            </div>
+            <button class="btn btn-primary border-0 shadow-none mt-3" id="upload-button">Upload Post</button>
+        </div>
+    </div>
+</div>
