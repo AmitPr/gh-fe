@@ -43,6 +43,19 @@ class API {
         });
         return result;
     }
+    
+    public fetchFileTree(){
+        var requestWithAuth = request.defaults({
+            headers: {
+                authorization: `token ${this.token}`
+            }
+        });
+        var result = requestWithAuth('GET /repos/{owner}/{repo}/git/trees/master?recursive=1', {
+            owner: Constants.REPO_OWNER,
+            repo: Constants.REPO_NAME,
+        });
+        return result;
+    }
 
     public tryFetchPost(postFileName:string){
         var requestWithAuth = request.defaults({

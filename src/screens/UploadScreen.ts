@@ -16,50 +16,43 @@ class UploadScreen {
             }, 500);
         });
         document.querySelector('#upload-button')!.addEventListener('click', this.attemptUpload.bind(this));
+        API.Instance.fetchFileTree().then((response) => {
+            console.log(response);
+        });
     }
 
     attemptUpload() {
-        var targetPath = (document.querySelector('#post-path') as HTMLInputElement).value;
-        var headline = (document.querySelector('#post-headline') as HTMLInputElement).value;
-        var description = (document.querySelector('#post-description') as HTMLInputElement).value;
+        var targetPath = (document.querySelector('#target-path') as HTMLInputElement).value;
 
         //Fetch the input file as text
-        var file_input = document.querySelector('#post-content') as HTMLInputElement;
-        if (file_input.files !== null && file_input.files.length > 0) {
-            var file = file_input.files[0];
-            var reader = new FileReader();
-            reader.onload = (e) => {
-                var header = `---
-headline: ${headline}  
-description: ${description}  
----
-`
-                var content: string = header + e.target?.result;
-                var fetchPromise = API.Instance.tryFetchPost(targetPath + '.md');
+        var fileInput = document.querySelector('#file-input') as HTMLInputElement;
+        if (fileInput.files !== null && fileInput.files.length > 0) {
+            var file = fileInput.files[0];
+            var fileReader = new FileReader();
+            fileReader.addEventListener("load", () => {
+                var encodedFile: string = (fileReader.result as string).split(',')[1];
+                var fetchPromise = API.Instance.tryFetchPost(targetPath);
                 var sha: string | undefined = undefined;
                 fetchPromise.then((response) => {
                     sha = response.data['sha' as keyof typeof response.data];
                 });
                 fetchPromise.finally(() => {
-                    var uploadPromise = API.Instance.uploadPost(targetPath + '.md', content, sha);
+                    var uploadPromise = API.Instance.uploadPost(targetPath, encodedFile, sha);
                     uploadPromise.then(() => {
                         this.container.classList.add('animated-reverse');
                         setTimeout(() => {
-                            AdminPortal.Instance.currentScreen = new HomeScreen(status='Post Uploaded!');
+                            AdminPortal.Instance.currentScreen = new HomeScreen(status = 'File Uploaded!');
                         }, 500);
                     }, (error) => {
                         this.container.classList.add('animated-reverse');
                         setTimeout(() => {
-                            AdminPortal.Instance.currentScreen = new HomeScreen(status='Post Not Uploaded!');
+                            AdminPortal.Instance.currentScreen = new HomeScreen(status = 'File Not Uploaded!');
                         }, 500);
                     });
                 });
-            };
-            reader.readAsText(file);
-        } else {
-
+            });
+            fileReader.readAsDataURL(file);
         }
-
     }
 }
 export { UploadScreen };
