@@ -57,21 +57,7 @@ class API {
         return result;
     }
 
-    public tryFetchPost(postFileName:string){
-        var requestWithAuth = request.defaults({
-            headers: {
-                authorization: `token ${this.token}`
-            }
-        });
-        var result = requestWithAuth('GET /repos/{owner}/{repo}/contents/{path}', {
-            owner: Constants.REPO_OWNER,
-            repo: Constants.REPO_NAME,
-            path: Constants.POST_DIR + postFileName,
-        });
-        return result;
-    }
-
-    public uploadPost(postFileName:string, content: string, sha:string|undefined){
+    public uploadPost(targetPath:string, content: string, sha:string|undefined){
         var requestWithAuth = request.defaults({
             headers: {
                 authorization: `token ${this.token}`
@@ -80,9 +66,9 @@ class API {
         var result = requestWithAuth('PUT /repos/{owner}/{repo}/contents/{path}', {
             owner: Constants.REPO_OWNER,
             repo: Constants.REPO_NAME,
-            path: Constants.POST_DIR + postFileName,
-            message: sha?'Edit Post (automated)':'Add Post (automated)',
-            content: btoa(content),
+            path: targetPath,
+            message: sha?`Edit File ${targetPath} (automated)`:`Add File ${targetPath} (automated)`,
+            content: content,
             sha: sha,
         })
         return result;

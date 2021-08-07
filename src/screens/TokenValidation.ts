@@ -6,6 +6,7 @@ import { AdminPortal } from '..';
 import { HomeScreen } from './HomeScreen';
 
 import template from "./TokenValidation.html";
+import { UploadScreen } from './UploadScreen';
 
 class TokenValidation {
     input: HTMLInputElement;
@@ -70,7 +71,7 @@ class TokenValidation {
     }
 
     dispose() {
-        AdminPortal.Instance.currentScreen = new HomeScreen();
+        AdminPortal.Instance.currentScreen = new UploadScreen();
     }
 }
 
