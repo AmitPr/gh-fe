@@ -28,6 +28,9 @@ class UploadScreen {
             }, 500);
         });
         document.querySelector('#upload-button')!.addEventListener('click', this.attemptUpload.bind(this));
+        this.refreshRenderTree();
+    }
+    refreshRenderTree() {
         API.Instance.fetchFileTree().then((response) => {
             response.data.tree.forEach((file: any) => {
                 this.tree.push(file);
@@ -35,28 +38,24 @@ class UploadScreen {
             });
         });
     }
-    
-    renderTree(){
+
+    renderTree() {
         var root: HTMLDivElement = document.querySelector('#tree-root') as HTMLDivElement;
         root.innerHTML = '';
         this.tree.forEach((file: any) => {
             var isFolder: boolean = file.type === 'tree';
             var filePath: string = file.path;
-            var parent:string = filePath.substring(0, filePath.lastIndexOf('/'));
-            var fileName:string = filePath.substring(filePath.lastIndexOf('/') + 1);
-            var element: string = `<li id="${filePath}" class="${isFolder ? 'folder' : 'file'}">${isFolder?`${ICON_FOLDER_OPEN} ${fileName}<ul></ul>`:`${ICON_FILE} ${fileName}`}</li>`;
-            if (isFolder) {
-                
-            }
-            if(parent === ''){
+            var parent: string = filePath.substring(0, filePath.lastIndexOf('/'));
+            var fileName: string = filePath.substring(filePath.lastIndexOf('/') + 1);
+            var element: string = `<li id="${filePath}" class="${isFolder ? 'folder' : 'file'}">${isFolder ? `${ICON_FOLDER_OPEN} ${fileName}<ul></ul>` : `${ICON_FILE} ${fileName}`}</li>`;
+            if (parent === '') {
                 root.innerHTML += element;
-            }else{
-                var parentElement = document.querySelector(`#${parent.replace('/','\\/')}>ul`) as HTMLDivElement;
+            } else {
+                var parentElement = document.querySelector(`#${parent.replace('/', '\\/')}>ul`) as HTMLDivElement;
                 parentElement.innerHTML += element;
             }
         });
         document.querySelectorAll('li.file, li.folder').forEach((li) => {
-            console.log(li);
             li.addEventListener('click', (e) => {
                 e.stopPropagation();
                 (document.querySelector('#target-path') as HTMLInputElement)!.value = li.id;
@@ -82,15 +81,12 @@ class UploadScreen {
                 });
                 var uploadPromise = API.Instance.uploadPost(targetPath, encodedFile, sha);
                 uploadPromise.then(() => {
-                    this.container.classList.add('animated-reverse');
-                    setTimeout(() => {
-                        AdminPortal.Instance.currentScreen = new HomeScreen(status = 'File Uploaded!');
-                    }, 500);
+                    document.querySelector('#alert-container')!.innerHTML=`<div class="alert alert-success">Operation successfully completed</div>`;
+                    this.refreshRenderTree();
                 }, (error) => {
-                    this.container.classList.add('animated-reverse');
-                    setTimeout(() => {
-                        AdminPortal.Instance.currentScreen = new HomeScreen(status = 'File Not Uploaded!');
-                    }, 500);
+                    document.querySelector('#alert-container')!.innerHTML=`<div class="alert alert-danger">Operation failed.</div>`;
+                    console.error(error);
+                    this.refreshRenderTree();
                 });
             });
             fileReader.readAsDataURL(file);
